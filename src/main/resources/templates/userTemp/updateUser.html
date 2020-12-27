@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>username
+            <select th:field="${updateName.username}">
+                <option th:each="user :${users}"
+                        th:value="${user.username}"
+                        th:text="${user.username}"
+                ></option>
+            </select>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>name
+            <input th:field="${updateName.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${updateName.name}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-success">
+    </div>
+</form>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>

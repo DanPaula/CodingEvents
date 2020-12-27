@@ -12,12 +12,16 @@
     <thead>
         <tr>
             <th>Event Name</th>
+            <th>Event Place</th>
         </tr>
     </thead>
     <tr th:each="event : ${events}">
         <td><a th:href="'/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a></td>
+        <td th:text="${event.place}"></td>
     </tr>
 </table>
-
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>

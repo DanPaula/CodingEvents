@@ -52,9 +52,9 @@ public class AdminController {
         newUser.setEnabled(Boolean.TRUE);
         newUser.setPassword(encodedPassword);
         newUser.setUsername(newUser.getUsername());
+        newUser.setName(newUser.getName());
         newUser.setUserRole(userRoleRepository.findById(2).get());
         Users userFind = userRepository.getUserByUsername(newUser.getUsername());
-
 
         if(userFind==null){
             userRepository.save(newUser);
@@ -89,4 +89,34 @@ public class AdminController {
         }
         return "redirect: ";
     }
+
+    @GetMapping("updateUser")
+    public String updateUsersForm(Model model){
+        model.addAttribute("title","Update Users");
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("updateName", new Users());
+        return "userTemp/updateUser";
+    }
+
+
+    @PostMapping("updateUser")
+    public String updateUser(@ModelAttribute Users newUser,
+                             Errors errors, Model model){
+        if(errors.hasErrors()){
+            model.addAttribute("title","Update User");
+            return "userTemp/createUser";
+        }
+
+        newUser.setName(newUser.getName());
+        Users userFind = userRepository.getUserByUsername(newUser.getUsername());
+
+        if(userFind!=null){
+            userRepository.updateUsers(newUser.getName(), newUser.getUsername());
+        }
+        else
+            return "redirect:";
+
+        return "redirect:";
+    }
+
 }

@@ -6,6 +6,7 @@ import org.launchcode.bookshop.data.TagRepository;
 import org.launchcode.bookshop.models.Event;
 import org.launchcode.bookshop.models.EventCategory;
 import org.launchcode.bookshop.models.Tag;
+import org.launchcode.bookshop.models.Users;
 import org.launchcode.bookshop.models.dto.EventTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -135,6 +136,35 @@ public class EventControllers {
             return "redirect:detail?eventId="+event.getId();
         }
         return "redirect:add-tag";
+    }
+
+    @GetMapping("updateEvents")
+    public String updateUsersForm(Model model){
+        model.addAttribute("title","Update Events");
+        model.addAttribute("events", eventRepository.findAll());
+        model.addAttribute("updatePlace", new Event());
+        return "events/updateEvents";
+    }
+
+
+    @PostMapping("updateEvents")
+    public String updateUser(@ModelAttribute Event newEvent,
+                             Errors errors, Model model){
+        if(errors.hasErrors()){
+            model.addAttribute("title","Update Events");
+            return "events/updateEvents";
+        }
+
+        newEvent.setPlace(newEvent.getPlace());
+        Event eventFind = eventRepository.getEventByName(newEvent.getName());
+
+        if(eventFind!=null){
+            eventRepository.updateEvents( newEvent.getPlace(),newEvent.getName());
+        }
+        else
+            return "redirect:";
+
+        return "redirect:";
     }
 
 }

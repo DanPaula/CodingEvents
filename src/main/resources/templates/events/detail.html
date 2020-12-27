@@ -26,5 +26,8 @@
 </table>
 
 <a th:href="'/events/add-tag?eventId=' + ${event.id}">Add Tag</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>

@@ -19,6 +19,8 @@
         <td th:text="${user.userRole.role}"></td>
     </tr>
 </table>
-
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>

@@ -17,6 +17,10 @@ public class Event extends AbstractEntity{
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
+    @NotBlank(message = "Place is required")
+    @Size(min = 3, max = 50, message = "Place must be between 3 and 50 characters")
+    private String place;
+
     //private EventType type;
     @ManyToOne //one event category
     @NotNull(message = "category is required")
@@ -30,9 +34,10 @@ public class Event extends AbstractEntity{
     @ManyToMany
     private final List<Tag> tags = new ArrayList<>();
 
-    public Event(String name, EventCategory eventCategory) {
+    public Event(@NotBlank(message = "Name is required") @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters") String name, @NotBlank(message = "Place is required") @Size(min = 3, max = 50, message = "Place must be between 3 and 50 characters") String place, @NotNull(message = "category is required") EventCategory eventCategory) {
         this.name = name;
-        this.eventCategory=eventCategory;
+        this.place = place;
+        this.eventCategory = eventCategory;
     }
 
     public Event(){ }
@@ -74,5 +79,11 @@ public class Event extends AbstractEntity{
         return name;
     }
 
+    public String getPlace() {
+        return place;
+    }
 
+    public void setPlace(String place) {
+        this.place = place;
+    }
 }

@@ -22,8 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().and().csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/eventCategories/create","/eventCategories/listCategories").hasAnyAuthority("user","admin")
-                .antMatchers("/createUser","/readUser","/delete").hasAuthority("admin")
+                .antMatchers("/eventCategories/create","/eventCategories/listCategories","/events/add-tag","/events/create","/events/delete","/events/detail","/events/index","/events/updateEvents","/tags/create","/tags/index","/events/updateEvents").hasAnyAuthority("user","admin")
+                .antMatchers("/createUser","/readUser","/delete","/updateUser").hasAuthority("admin")
                 .antMatchers("/").permitAll();
     }
 
